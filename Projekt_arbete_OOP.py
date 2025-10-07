@@ -1,1 +1,3 @@
-#simple game using oop programming
+#simple game using OOP
+import random
+
