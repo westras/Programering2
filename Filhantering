@@ -1,0 +1,512 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/westras/Programering2/blob/main/Filhantering\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "XS2ZA6hfBKn1"
+      },
+      "source": [
+        "# 📝 Filhantering – 15 Utförliga Övningar"
+      ],
+      "id": "XS2ZA6hfBKn1"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "RJpEyQ01BKn2"
+      },
+      "source": [
+        "### InstruktionSkriv all kod själv i cellerna under varje uppgift. Använd `with open(...)` och `pathlib` när det passar."
+      ],
+      "id": "RJpEyQ01BKn2"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "MfAQLVeVBKn2"
+      },
+      "source": [
+        "## 1. Skapa en textfilSkriv ett program som skapar en fil `uppgift1.txt` och skriver två valfria rader."
+      ],
+      "id": "MfAQLVeVBKn2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "TW8DLRJiBKn2"
+      },
+      "source": [
+        "with open('uppgift1.txt', 'w', encoding='utf-8') as f: #standard för att öppna den fil vi vill\n",
+        "    f.write(\"Tjena mitt namn är Rasmus och jag har ingen energi idag. \\n\")# kallar filen med f och bestämmer oss för att skriva (write)\n",
+        "    f.write(\"Jag borde investera i kaffeproduktion! \\n\")#sen skriver vi in vår sträng"
+      ],
+      "outputs": [],
+      "execution_count": 6,
+      "id": "TW8DLRJiBKn2"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "bAF5BlRrBKn2"
+      },
+      "source": [
+        "## 2. Läs en filLäs in filen du skapade i uppgift 1 och skriv ut hela innehållet."
+      ],
+      "id": "bAF5BlRrBKn2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "3ZKg753eBKn2",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 52
+        },
+        "outputId": "1be65a9d-0fbd-4310-cd07-3f5c4a6aa381"
+      },
+      "source": [
+        "with open('uppgift1.txt', 'r', encoding='utf-8') as f:#väljer våran fil\n",
+        "    innehåll = f.read() #vi skapar variabel innehåll som läser filen\n",
+        "innehåll #kallar variable och därmed metoden"
+      ],
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "'Tjena mitt namn är Rasmus och jag har ingen energi idag. \\nJag borde investera i kaffeproduktion! \\n'"
+            ],
+            "application/vnd.google.colaboratory.intrinsic+json": {
+              "type": "string"
+            }
+          },
+          "metadata": {},
+          "execution_count": 7
+        }
+      ],
+      "execution_count": 7,
+      "id": "3ZKg753eBKn2"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Wk9nP8tnBKn2"
+      },
+      "source": [
+        "## 3. Läsa rad för radSkriv ut varje rad i filen utan radslut."
+      ],
+      "id": "Wk9nP8tnBKn2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "yjVTyn6WBKn2",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "13007026-c7e0-4cd9-d88e-cf46cc8ab264"
+      },
+      "source": [
+        "with open('uppgift1.txt', 'r', encoding='utf-8') as f: #väljer fil\n",
+        "  for rad in f:#gör en for loop\n",
+        "    print(rad.rstrip())#där vi printar de olika strängarna/ raderna i filen på olika rader"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Tjena mitt namn är Rasmus och jag har ingen energi idag.\n",
+            "Jag borde investera i kaffeproduktion!\n"
+          ]
+        }
+      ],
+      "execution_count": 8,
+      "id": "yjVTyn6WBKn2"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "dE1xBR6CBKn2"
+      },
+      "source": [
+        "## 4. Kontrollera om fil finnsAnvänd pathlib för att skriva ut om `uppgift1.txt` finns."
+      ],
+      "id": "dE1xBR6CBKn2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "yPp39XJ8BKn2",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "7fbb0fe8-7f85-4b94-ccba-adb310abb4f6"
+      },
+      "source": [
+        "from pathlib import Path #kallar ett biblotek\n",
+        "P = Path('uppgift1.txt') #gör en länk till filen via P varaibel\n",
+        "if P.exists(): #if sats för att se om den existerar eller inte\n",
+        "    print(P.exists(), P.name, P.suffix, P.resolve()) #om den gör det prinatr vi information om filen\n",
+        "else:#gör den inte det säger vi bara att den är false\n",
+        "    print(f\"{P} finns inte.\")"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "True uppgift1.txt .txt /content/uppgift1.txt\n"
+          ]
+        }
+      ],
+      "execution_count": 9,
+      "id": "yPp39XJ8BKn2"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "is7lhwF4BKn2"
+      },
+      "source": [
+        "## 5. Lägg till text i filLägg till en tredje rad i samma fil utan att skriva över den."
+      ],
+      "id": "is7lhwF4BKn2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "yKc6aMn5BKn2"
+      },
+      "source": [
+        "with open('uppgift1.txt', 'a', encoding='utf-8') as f: #öppnar våran fil\n",
+        "  f.write('Jag investerade i en KebabHandel istället\\n')#skriver en till write\n",
+        "  #överskrider inte de andra, lägger bara till"
+      ],
+      "outputs": [],
+      "execution_count": 10,
+      "id": "yKc6aMn5BKn2"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "KYx4PrfVBKn2"
+      },
+      "source": [
+        "## 6. Skapa och läs en lista i filSkriv en lista med tre ord till fil och läs tillbaka dem."
+      ],
+      "id": "KYx4PrfVBKn2"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "VK25d3xPBKn3"
+      },
+      "source": [
+        "ZaWords = [\"KycklingKebab\\n\", \"Kaffe\\n\", \"Coffein\\n\" ] #gör en lista med våra objekt\n",
+        "with open('uppgift2.txt', 'w', encoding='utf-8') as f:#öppnar våran fil\n",
+        "  f.writelines(ZaWords)#writelines gör så att vi kan skriva flera och så lägger vi in våran lista"
+      ],
+      "outputs": [],
+      "execution_count": 11,
+      "id": "VK25d3xPBKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "XnZrJPKQBKn3"
+      },
+      "source": [
+        "## 7. LoggfilSkapa en fil `logg.txt` och lägg till en rad med tidsstämpel varje gång programmet körs."
+      ],
+      "id": "XnZrJPKQBKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "56InvScVBKn3"
+      },
+      "source": [
+        "from datetime import datetime #importerar biblotek\n",
+        "with open('logg.txt', 'a', encoding='utf-8') as f: #öppnar filen logg.txt\n",
+        "  tid = datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\") # använder datetime, läggs in via år månader, dagar, timmat, minuter och sekunder\n",
+        "  f.write(f'[{tid}] När skrevs jag?😔\\n') #lägger till text i filen med tiden"
+      ],
+      "outputs": [],
+      "execution_count": 12,
+      "id": "56InvScVBKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "_c9NIXZWBKn3"
+      },
+      "source": [
+        "## 8. RäknareSkapa `counter.txt` som håller koll på hur många gånger programmet körts."
+      ],
+      "id": "_c9NIXZWBKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "_lWpRW_yBKn3",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "6f602235-4540-42d4-adcf-b8f2eb42a295"
+      },
+      "source": [
+        "ProgKörts = 0\n",
+        "\n",
+        "try:\n",
+        "    with open('counter.txt', 'r', encoding='utf-8') as f:\n",
+        "        innehåll = f.read().strip()\n",
+        "        if innehåll: # finns inget att lägga til görs det inte\n",
+        "            ProgKörts = int(innehåll)\n",
+        "except (FileNotFoundError, ValueError):\n",
+        "    # om inget innehåll finns så stannar progkörts på 0\n",
+        "    pass\n",
+        "\n",
+        "# annars ökar progkörts med 1\n",
+        "ProgKörts += 1\n",
+        "\n",
+        "# Sen skriver vi att programmet har körts i filen\n",
+        "with open('counter.txt', 'w', encoding='utf-8') as f:\n",
+        "    f.write(str(ProgKörts))\n",
+        "\n",
+        "print(f\"Programmet körts {ProgKörts} gånger.\") #och printar resultatet"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Programmet körts 1 gånger.\n"
+          ]
+        }
+      ],
+      "execution_count": 13,
+      "id": "_lWpRW_yBKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "S3BNehwQBKn3"
+      },
+      "source": [
+        "## 9. FilfilterLäs `elever.txt` (skapa själv) och skapa `toppelever.txt` med endast A och B."
+      ],
+      "id": "S3BNehwQBKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ChaCljqlBKn3",
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 228
+        },
+        "outputId": "8d8d3f3f-a52e-48a8-e4f2-cf093787eeb8"
+      },
+      "source": [
+        "#FilfilterLäs elever.txt (skapa själv) och skapa toppelever.txt med endast A och B.\n",
+        "with open('elever.txt', 'r', encoding='utf-8') as f:\n",
+        "    elever = f.readlines()\n",
+        "    toppelever = [elev for elev in elever if elev.strip().endswith(('A', 'B'))] #kör en loop geneom documentet vi skapade\n",
+        "\n",
+        "    with open('toppelever.txt', 'w', encoding='utf-8') as f:\n",
+        "        f.writelines\n",
+        "        f.writelines(toppelever)#lägger till de elever som hade a eller b i slutet\n"
+      ],
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "FileNotFoundError",
+          "evalue": "[Errno 2] No such file or directory: 'elever.txt'",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mFileNotFoundError\u001b[0m                         Traceback (most recent call last)",
+            "\u001b[0;32m/tmp/ipykernel_1830/2395364417.py\u001b[0m in \u001b[0;36m<cell line: 0>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0;31m#FilfilterLäs elever.txt (skapa själv) och skapa toppelever.txt med endast A och B.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0;32mwith\u001b[0m \u001b[0mopen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'elever.txt'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'r'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mencoding\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;34m'utf-8'\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;32mas\u001b[0m \u001b[0mf\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      3\u001b[0m     \u001b[0melever\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mf\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mreadlines\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m     \u001b[0mtoppelever\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0melev\u001b[0m \u001b[0;32mfor\u001b[0m \u001b[0melev\u001b[0m \u001b[0;32min\u001b[0m \u001b[0melever\u001b[0m \u001b[0;32mif\u001b[0m \u001b[0melev\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mstrip\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mendswith\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'A'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'B'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;31m#kör en loop geneom documentet vi skapade\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      5\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mFileNotFoundError\u001b[0m: [Errno 2] No such file or directory: 'elever.txt'"
+          ]
+        }
+      ],
+      "execution_count": 14,
+      "id": "ChaCljqlBKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "kptaoIdBBKn3"
+      },
+      "source": [
+        "## 10. Räkna rader i alla txt-filerAnvänd pathlib och glob."
+      ],
+      "id": "kptaoIdBBKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "mQRKU0Y9BKn3",
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "outputId": "68a9bebf-7387-4b4b-fb72-60a4db705368"
+      },
+      "source": [
+        "from pathlib import Path #hämta pathlib\n",
+        "\n",
+        "current_directory = Path('.')\n",
+        "\n",
+        "for file_path in current_directory.glob('*.txt'):#kollar efter txt filer i directory\n",
+        "    if file_path.is_file():\n",
+        "        try:\n",
+        "            with open(file_path, 'r', encoding='utf-8') as f:\n",
+        "                lines = f.readlines()\n",
+        "                print(f\"Fil: {file_path.name}, Antal rader: {len(lines)}\") #om vi hittar en prövar vi öppna och läsa rader\n",
+        "        except Exception as e:\n",
+        "            print(f\"Kunde inte läsa fil {file_path.name}: {e}\") #anasr ger vi fel meddelande"
+      ],
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Fil: uppgift2.txt, Antal rader: 3\n",
+            "Fil: logg.txt, Antal rader: 1\n",
+            "Fil: counter.txt, Antal rader: 1\n",
+            "Fil: uppgift1.txt, Antal rader: 3\n"
+          ]
+        }
+      ],
+      "execution_count": 15,
+      "id": "mQRKU0Y9BKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "0D7u0F93BKn3"
+      },
+      "source": [
+        "## 11. JSON-inställningarSkapa och ändra `settings.json`."
+      ],
+      "id": "0D7u0F93BKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "pSLwXKsdBKn3"
+      },
+      "source": [],
+      "outputs": [],
+      "execution_count": null,
+      "id": "pSLwXKsdBKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "K8H1NA_aBKn3"
+      },
+      "source": [
+        "## 12. Binärfil – skriv bytesSkriv valfri byte-sekvens till fil."
+      ],
+      "id": "K8H1NA_aBKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "zjR_3VQJBKn3"
+      },
+      "source": [],
+      "outputs": [],
+      "execution_count": null,
+      "id": "zjR_3VQJBKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "Hlqog7yBBKn3"
+      },
+      "source": [
+        "## 13. Binärfil – läs bytesLäs din binärfil och skriv ut innehållet."
+      ],
+      "id": "Hlqog7yBBKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "vYVF8FYXBKn3"
+      },
+      "source": [],
+      "outputs": [],
+      "execution_count": null,
+      "id": "vYVF8FYXBKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "JF6QOJuOBKn3"
+      },
+      "source": [
+        "## 14. FelhanteringTesta att läsa en fil som inte finns och fånga felet."
+      ],
+      "id": "JF6QOJuOBKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "uMxJbfbmBKn3"
+      },
+      "source": [],
+      "outputs": [],
+      "execution_count": null,
+      "id": "uMxJbfbmBKn3"
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "dr-XPlUWBKn3"
+      },
+      "source": [
+        "## 15. Mini-databas i filSkapa ett program där användaren kan lägga till namn i en fil och visa alla sparade namn."
+      ],
+      "id": "dr-XPlUWBKn3"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "hjS5pySRBKn3"
+      },
+      "source": [],
+      "outputs": [],
+      "execution_count": null,
+      "id": "hjS5pySRBKn3"
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "toc_visible": true,
+      "include_colab_link": true
+    },
+    "language_info": {
+      "name": "python"
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
